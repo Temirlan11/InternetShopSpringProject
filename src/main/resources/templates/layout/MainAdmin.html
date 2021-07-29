@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" encoding="UTF-8"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color" style="background-color: #3F4A4A">
+        <a class="navbar-brand" th:text="#{label.adminPanel}" th:href="@{'/admin'}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+                aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{'/'}" th:text="#{label.mainPageAdminLink}"></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" th:text="#{label.language}">
+                        <i class="fas fa-user"></i> Language </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item" href="?lang=en">ENG</a>
+                        <a class="dropdown-item" href="?lang=ru">RUS</a>
+                        <a class="dropdown-item" href="?lang=kz">KAZ</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#staticBackdrop"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row" style="margin-top: 35px; margin-left: 70px">
+        <div class="container" layout:fragment = "site_content" style="min-height: 600px;">
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue" style="background-color: dimgray">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3" style="color: white">Copyright ©
+            <a href="https://mdbootstrap.com/" style="color: white"> alleshop.kz 2020</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+<!--    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="staticBackdropLabel">ADD NEW ITEM</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <form th:action="@{'/additem'}" method="post">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput">Name:</label>-->
+<!--                            <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Name">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput2">Description</label>-->
+<!--                            <input type="text" class="form-control" name="description" id="formGroupExampleInput2" placeholder="description">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput11">Price</label>-->
+<!--                            <input type="number" class="form-control" name="price" id="formGroupExampleInput11" placeholder="price">-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="inputState">Star:</label>-->
+<!--                            <select id="inputState" name="star" class="form-control">-->
+<!--                                <option>1</option>-->
+<!--                                <option>2</option>-->
+<!--                                <option>3</option>-->
+<!--                                <option>4</option>-->
+<!--                                <option>5</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput44">Small Picture Url:</label>-->
+<!--                            <input type="text" class="form-control" name="smallpicurl" id="formGroupExampleInput44" placeholder="pictureUrl">-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput45">Large Picture Url:</label>-->
+<!--                            <input type="text" class="form-control" name="largepicurl" id="formGroupExampleInput45" placeholder="pictureUrl">-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="inputState2">In Top Page:</label>-->
+<!--                            <select id="inputState2" name="top_page" class="form-control">-->
+<!--                                <option>True</option>-->
+<!--                                <option>False</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="brandi">Country:</label>-->
+<!--                            <select id="brandi" name="brand" class="form-control">-->
+<!--                                <option th:each="b : ${brands}" th:text="${b.getName()}" th:value="${b.getId()}"></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                        <div class="modal-footer">-->
+<!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                            <button type="submit" class="btn btn-primary">Add Item</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--    <div class="modal fade" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="staticBackdropLabel1">EDIT ITEM</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <form th:action="@{'/editDeleteItem/' + ${item.getId()}}" method="post">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput1">Name:</label>-->
+<!--                            <input type="text" class="form-control" name="name" id="formGroupExampleInput1" th:value="${item.getName()}" placeholder="Name">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput3">Description</label>-->
+<!--                            <input type="text" class="form-control" name="description" id="formGroupExampleInput3" th:value="${item.getDescription()}" placeholder="description">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput111">Price</label>-->
+<!--                            <input type="number" class="form-control" name="price" id="formGroupExampleInput111" th:value="${item.getPrice()}" placeholder="price">-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="inputState3">Star:</label>-->
+<!--                            <select id="inputState3" name="star" class="form-control">-->
+<!--&lt;!&ndash;                                <div  th:each="i : ${#numbers.sequence(1, 5)}" th:text="${i}" th:if="${item.getStars() != i}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <option th:each="i : ${#numbers.sequence(1, 5)}" th:text="${i}" th:if="${item.getStars() != i}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                                <option th:each="i : ${#numbers.sequence(1, 5)}" th:text="${i}" th:if="${item.getStars() != i}"></option>-->
+<!--                                <option th:each="i : ${#numbers.sequence(1, 5)}" th:text="${i}" th:unless="${item.getStars() != i}" selected></option>-->
+<!--&lt;!&ndash;                                <option value="1">1</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <option value="2">2</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <option value="3">3</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <option value="4">4</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <option value="5">5</option>&ndash;&gt;-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput444">Small Picture Url:</label>-->
+<!--                            <input type="text" class="form-control" name="smallpicurl" id="formGroupExampleInput444" th:value="${item.getSmallPictureUrl()}" placeholder="pictureUrl">-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group">-->
+<!--                            <label for="formGroupExampleInput455">Large Picture Url:</label>-->
+<!--                            <input type="text" class="form-control" name="largepicurl" id="formGroupExampleInput455" th:value="${item.getLargePictureUrl()}" placeholder="pictureUrl">-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="inputState22">In Top Page:</label>-->
+<!--                            <select id="inputState22" name="top_page" class="form-control">-->
+<!--                                <div th:if="${item.isInTopPage() == true}">-->
+<!--                                    <option selected>True</option>-->
+<!--                                    <option>False</option>-->
+<!--                                </div>-->
+<!--                                <div th:unless="${item.isInTopPage() == true}">-->
+<!--                                    <option>True</option>-->
+<!--                                    <option selected>False</option>-->
+<!--                                </div>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="brandi2">Brand:</label>-->
+<!--                            <select id="brandi2" name="brand" class="form-control">-->
+<!--                                <option th:each="b : ${brands}" th:text="${b.getName()}" th:value="${b.getId()}" th:selected="${item!=null&&item.brand!=null&&item.brand.id==b.id}"></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                        <div class="modal-footer">-->
+<!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                            <button type="submit" class="btn btn-primary" name="btn_action" value="edit">Edit</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/MainAdmin.html">
+<div layout:fragment = "site_content">
+    <div class="container">
+        <div class="jumbotron mt-15">
+            <form th:action="@{@{'/editDeleteBrand/' + ${brand.id}}}" method="post">
+                <h1 class="display-4" th:text="${brand.name}"></h1>
+                <p class="lead" th:text="'Brands country: ' + ${brand.country.name}"></p>
+                <hr class="my-4">
+                <div class="row">
+                    <a type="button" role="button" href="#" class="btn btn-secondary" style="background-color: dodgerblue" data-toggle="modal" data-target="#editModal">Edit</a>
+                    <button type="submit" class="btn btn-secondary" name="btn_action" value="delete" style="background-color: red">Delete</button>
+                </div>
+                <!--                <a class="btn btn-info btn-lg" href="#" role="button" type="submit" data-toggle="modal" data-target="#editModal">Edit</a>-->
+                <!--                <button type="submit" class="btn btn-secondary" name="btn_action" value="delete" style="background-color: red">Delete</button>-->
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel1">EDIT ITEM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{'/editDeleteBrand/' + ${brand.id}}" method="post">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput1">Name:</label>
+                            <input type="text" class="form-control" name="name" id="formGroupExampleInput1" th:value="${brand.name}" placeholder="Name">
+                        </div>
+                        <div class="col-sm-7 mb-3">
+                            <label>Country: </label>
+                            <select id="brandi" name="country" class="form-control">
+                                <option th:each="c : ${countries}" th:text="${c.getName()}" th:value="${c.id}" th:selected="${brand!=null&&brand.country.id==c.id}"></option>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="btn_action" value="edit">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

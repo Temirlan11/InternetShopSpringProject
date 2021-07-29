@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/Main.html">
+    <div layout:fragment = "site_content">
+        <div class="row">
+<!--            <div class="list-group" style="width: 14rem;">-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.all_items}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.phones}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.laptops}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.watches}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.televisions}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.game_concoles}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.other}"></a>-->
+<!--            </div>-->
+            <div class="column">
+                <div class="list-group" style="width: 14rem;">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active" th:text="#{label.Categories}" style="background-color: darkgreen">
+
+                        </a>
+                        <a th:each="c : ${categories}" href="#" class="list-group-item list-group-item-action" th:text="${c.getName()}" style="font-size: 13px"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div class="col-8 offset-2">
+                    <form th:action="@{'/auth'}" method="post">
+                        <div class="form-group">
+                            <label th:text="#{label.email} + ': '"></label>
+                            <input type="email"  name="user_email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label th:text="#{label.password} + ': '"></label>
+                            <input type="password"  name="user_password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn float-right" style="background-color: darkgreen; color:white" th:text="#{label.signinbtn}"></button>
+                        </div>
+                        <div class="form-group">
+                            <p><span th:text="#{label.member}"></span>
+                                <a href="" th:text="#{label.register}"></a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</html>

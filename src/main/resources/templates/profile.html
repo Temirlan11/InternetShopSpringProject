@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/Main.html">
+    <div layout:fragment = "site_content">
+        <div class="row">
+<!--            <div class="list-group" style="width: 14rem;">-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.all_items}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.phones}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.laptops}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.watches}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.televisions}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.game_concoles}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.other}"></a>-->
+<!--            </div>-->
+            <div class="column">
+                <div class="list-group" style="width: 14rem;">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active" th:text="#{label.Categories}" style="background-color: darkgreen">
+
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">All Products</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">Smartphone, Gadgets</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">TV, Audio, Video</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">Everything for gamers</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">Other</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div class="col-8 offset-2">
+                   <h2 th:text="#{label.profilePage}"></h2>
+                    <h1><span th:text="${currentUser.getFullname()}"></span></h1>
+
+                    <div class="col-6 offset-2">
+                        <img th:src="@{'/viewphoto/' + ${currentUser.getPictureURL()}}" style="width: 100%">
+                    </div>
+                    
+                    <form th:action="@{'/uploadavatar'}" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="formFileSm" class="form-label" th:text="#{button.chooseFile}">Small file input example</label>
+                            <input class="form-control form-control-sm" id="formFileSm" type="file" name="user_ava">
+                            <button class="btn btn-success mt-2" th:text="#{button.UploadFile}"></button>
+                        </div>
+                    </form>
+
+                    <div class="container mt-5">
+                        <form th:action="@{'/updateProfile'}" method="post">
+                            <h4 th:text="#{label.editProfile}"></h4>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" th:text="#{label.email}"></label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" name="email" th:value="${currentUser.getEmail()}" aria-describedby="emailHelp" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFullName1" th:text="#{label.fullname}"></label>
+                                <input type="text" class="form-control" name="fullname" id="exampleInputFullName1" th:value="${currentUser.getFullname()}">
+                                <small id="emailHelp4" class="form-text text-muted">Change your full name</small>
+                            </div>
+                            <button type="submit" name="btn_action" value="update_profile" class="btn btn-primary" style="background-color: darkgreen" th:text="#{button.updateProfile}"></button>
+                        </form>
+                    </div>
+
+
+                    <div class="container mt-5 mb-5">
+                        <form th:action="@{'/updatepassword'}" method="post">
+                            <h4 th:text="#{button.updatePassword}"></h4>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" th:text="#{label.oldPassword}"></label>
+                                <input type="password" class="form-control" name="old_password" id="exampleInputPassword1">
+                                <small id="emailHelp1" class="form-text text-muted">Input your old password</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword2" th:text="#{label.password}"></label>
+                                <input type="password" class="form-control" name="new_password" id="exampleInputPassword2">
+                                <small id="emailHelp2" class="form-text text-muted">Input your new password</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword3" th:text="#{label.rePassword}"></label>
+                                <input type="password" class="form-control" name="re_new_password" id="exampleInputPassword3">
+                                <small id="emailHelp3" class="form-text text-muted">Re type your new password again</small>
+                            </div>
+                            <button type="submit" name="btn_action" value="update_password" class="btn btn-primary" style="background-color: darkgreen" th:text="#{button.updatePassword}"></button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</html>

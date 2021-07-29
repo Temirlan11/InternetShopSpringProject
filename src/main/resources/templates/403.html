@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/Main.html">
+    <div layout:fragment = "site_content">
+        <div class="row">
+<!--            <div class="list-group" style="width: 14rem;">-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.all_items}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.phones}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.laptops}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.watches}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.televisions}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.game_concoles}"></a>-->
+<!--                <a href="#!" class="list-group-item list-group-item-action" th:text="#{label.other}"></a>-->
+<!--            </div>-->
+            <div class="column">
+                <div class="list-group" style="width: 14rem;">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active" style="background-color: darkgreen">
+                            Categories
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">All Products</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">Smartphone, Gadgets</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">TV, Audio, Video</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">Everything for gamers</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 14px">Other</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div class="col-8 offset-2">
+                    <div class="alert alert-danger text-center" role="alert">
+                        <h1>403 Forbidden Error</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

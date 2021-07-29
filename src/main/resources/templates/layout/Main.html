@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" encoding="UTF-8"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color" style="background-color: darkgreen">
+        <a class="navbar-brand" th:href="@{'/'}">ALL E-SHOP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+                aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" th:text="#{label.language}">
+                        <i class="fas fa-user"></i> Language </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item" href="?lang=en">ENG</a>
+                        <a class="dropdown-item" href="?lang=ru">RUS</a>
+                        <a class="dropdown-item" href="?lang=kz">KAZ</a>
+                    </div>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{'/profile'}" th:text="${currentUser.getFullname()}"></a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{'/admin'}" th:text="#{label.adminPanel}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">Admin Panel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{'/tops'}" th:text="#{label.onlyTopPage}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{'/basket'}" th:text="#{label.basket} + '(' + ${basket.size()} + ')'"></a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{'/login'}" th:text="#{label.login}"></a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{'/register'}" th:text="#{label.register}"></a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="JavaScript:void(0)" onclick="document.getElementById('logoutForm').submit()" th:text="#{label.logout}"></a>
+                </li>
+                <form th:action="@{'/logout'}" method="post" id="logoutForm" sec:authorize="isAuthenticated()">
+
+                </form>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row" style="margin-top: 35px; margin-left: 70px">
+        <div class="container" layout:fragment = "site_content" style="min-height: 600px;">
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue" style="background-color: dimgray">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3" style="color: white"><span th:text="#{label.copyright}"></span> ©
+            <a href="https://mdbootstrap.com/" style="color: white"> alleshop.kz 2020</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+</body>
+</html>

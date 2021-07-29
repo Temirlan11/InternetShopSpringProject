@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/Main.html">
+    <div layout:fragment = "site_content">
+        <div class="row">
+            <div class="column">
+                <div class="list-group" style="width: 14rem;">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active" style="background-color: darkgreen">
+                            Categories
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 13px">All Products</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 13px">Smartphone, Gadgets</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 13px">TV, Audio, Video</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 13px">Everything for gamers</a>
+                        <a href="#" class="list-group-item list-group-item-action" style="font-size: 13px">Other</a>
+                    </div>
+                </div>
+
+                <div class="list-group" style="width: 14rem; padding-top: 30px">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active" style="background-color: darkgreen">
+                            Brands
+                        </a>
+                        <a th:each="br : ${brands}" th:href="@{'/detailedSearch/' + ${br.id}}" th:text="${br.name}" class="list-group-item list-group-item-action" style="font-size: 13px"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column" style="margin-left: 30px">
+                <form th:action="@{'/search'}" method="get">
+                    <div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="text" name="name" class="form-control" id="inputEmail3">
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="background-color: darkgreen; width: 15%;">Search</button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="row row-cols-2 row-cols-md-1" style="width: 800px; margin-top: 30px">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h3 th:text="#{label.basket}"></h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th th:text="#{label.item}">Item</th>
+                                        <th th:text="#{label.price}">Price</th>
+                                        <th th:text="#{label.amount}">Amount</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--                                <tr th:each="c : ${countries}">-->
+                                    <tr th:each="item : ${basket.keySet()}">
+                                        <td th:text="${item.name}"></td>
+                                        <td th:text="${item.price}"></td>
+                                        <td th:text="${basket.get(item).intValue()}"></td>
+                                        <td width="11%">
+                                            <div class="row">
+                                                <form th:action="@{'appendtobasket'}" method="get">
+                                                    <input type="hidden" name="item_id" th:value="${item.getId()}">
+                                                    <button role="button" type="submit" class="btn btn-success btn-sm" style="margin-right: 3px;" th:href="@{'/'}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                                <form th:action="@{'deletefrombasket'}" method="get">
+                                                    <input type="hidden" name="item_id" th:value="${item.getId()}">
+                                                    <button class="btn btn-danger btn-sm" th:href="@{'/'}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--                                </tr>-->
+                                    </tbody>
+                                </table>
+
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td><span th:text="#{label.total} + ': '"> </span> <b><span th:text="'$' + ${total}"></span></b> </td>
+                                            <td width="33%">
+                                                <div class="row">
+                                                    <a class="btn bg-dark text-white btn-sm" type="button" style="margin-right: 3px;" data-toggle="modal" data-target="#checkin">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-2-back" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M14 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
+                                                            <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1zM1 9h14v2H1V9z"/>
+                                                        </svg> <span th:text="#{label.checkin}" data-toggle="modal" data-target="#checkin">CHECK IN</span>
+                                                    </a>
+                                                    <form th:action="@{'clearbasket'}" method="get">
+                                                        <button class="btn btn-danger btn-sm" type="submit" th:href="@{'/'}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                            </svg> <span th:text="#{label.clearBasket}">CLEAR BASKET</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="modal fade" id="checkin" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel1" th:text="#{label.checkin}">Check In</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{'makepayment'}" method="post">
+                                                    <div class="col-20">
+                                                        <label for="formGroupExampleInput1" th:text="#{label.fullname}">Name:</label>
+                                                        <input type="text" class="form-control" name="fullName" id="formGroupExampleInput1">
+                                                    </div>
+                                                    <div class="col-20">
+                                                        <label for="formGroupExampleInput33" th:text="#{label.cardNumber}">Card Number:</label>
+                                                        <input type="text" class="form-control" name="cardNumber" id="formGroupExampleInput33">
+                                                    </div>
+                                                    <div class="row g-6">
+                                                        <div class="col-md-6">
+                                                            <label for="formGroupExampleInput15" th:text="#{label.expiration}">Name:</label>
+                                                            <input type="text" class="form-control" name="expiration" id="formGroupExampleInput15">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="formGroupExampleInput83" th:text="#{label.cvv}">Card Number:</label>
+                                                            <input type="text" class="form-control" name="cvv" id="formGroupExampleInput83">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-success" name="btn_action" value="edit" th:text="#{button.pay}">Pay</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{button.close}">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function validate(){
+            CardNumber = document.getElementById("cardNumber");
+
+            cardNumCheck = false;
+            if(CardNumber.value.length==16){
+                cardNumCheck = true;
+            }
+             if(!cardNumCheck){
+                 CardNumber.style.border = "2px solid red";
+             }
+        }
+    </script>
+
+    <!-- Modal -->
+</html>
